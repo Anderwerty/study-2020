@@ -9,12 +9,14 @@ public class User {
     private final Integer id;
     private final String email;
     private final String password;
+    private final String telephoneNumber;
     private final List<Account> accounts;
 
     private User(Builder builder) {
         this.id = builder.id;
         this.email = builder.email;
         this.password = builder.password;
+        this.telephoneNumber=builder.telephoneNumber;
         this.accounts = nullSafeListInitialize(builder.accounts);
     }
 
@@ -32,6 +34,10 @@ public class User {
 
     public List<Account> getAccounts() {
         return accounts;
+    }
+
+    public String getTelephoneNumber() {
+        return telephoneNumber;
     }
 
     public static Builder builder() {
@@ -72,6 +78,7 @@ public class User {
         private Integer id;
         private String email;
         private String password;
+        private  String telephoneNumber;
         private List<Account> accounts;
 
         private Builder() {
@@ -93,6 +100,11 @@ public class User {
 
         public Builder withPassword(String password) {
             this.password = password;
+            return this;
+        }
+
+        public Builder withTelephoneNumber(String telephoneNumber) {
+            this.telephoneNumber = telephoneNumber;
             return this;
         }
 

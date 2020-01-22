@@ -3,6 +3,7 @@ package com.bank.repository.impl;
 import com.bank.domain.User;
 import com.bank.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,10 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findByEmail(String email) {
-        return Optional.empty();
+        //validate email
+        return userIdToUser.values().stream()
+                .filter(user -> user.getEmail().equals(email))
+                .findAny();
     }
 
     @Override
@@ -23,12 +27,18 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findById(Integer id) {
-        return Optional.empty();
+        return Optional.ofNullable(userIdToUser.get(id));
     }
 
     @Override
-    public List<User> findAll() {
-        return null;
+    public List<User> findAll(int page, int itemPerPage) {
+        //should be implemented
+        return new ArrayList<>(userIdToUser.values());
+    }
+
+    @Override
+    public long count() {
+        return userIdToUser.size();
     }
 
     @Override

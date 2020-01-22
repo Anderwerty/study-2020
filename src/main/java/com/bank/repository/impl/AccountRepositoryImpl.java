@@ -25,6 +25,11 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
     public void update(Account entity) {
 
     }
