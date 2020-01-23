@@ -39,7 +39,9 @@ public class UserServiceImpl implements UserService {
     public User register(User user) {
         userValidator.validate(user);
 
-        userRepository.findByEmail(user.getEmail()).orElseThrow(RuntimeException::new);
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new RuntimeException("message");
+        }
 
         userRepository.save(user);
 

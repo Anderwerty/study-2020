@@ -2,6 +2,7 @@ package com.bank.repository;
 
 import com.bank.repository.impl.Pageable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,13 +13,9 @@ public interface CrudRepository<E> {
     //read
     Optional<E> findById(Integer id);
 
-    List<E> findAll(int page, int itemsPerPage);
-
-    default Pageable<E> findAll(Page page){
-        return null;
+    default List<E> findAll(){
+        return Collections.emptyList();
     }
-
-    long count();
 
     //update
 
