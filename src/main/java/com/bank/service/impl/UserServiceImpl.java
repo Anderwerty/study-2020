@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean login(String email, String password) {
+        //validate email and password
         String encriptPassword = passwordEncriptor.encript(password);
 
         return userRepository.findByEmail(email)
@@ -37,6 +38,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(User user) {
         userValidator.validate(user);
+
+        userRepository.findByEmail(user.getEmail()).orElseThrow(RuntimeException::new);
 
         userRepository.save(user);
 

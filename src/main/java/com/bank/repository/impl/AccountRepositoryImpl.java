@@ -20,7 +20,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public List<Account> findAll() {
+    public List<Account> findAll(int page, int itemsPerPage) {
         return Collections.emptyList();
     }
 
