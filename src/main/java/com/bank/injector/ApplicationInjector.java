@@ -1,8 +1,8 @@
 package com.bank.injector;
 
 import com.bank.domain.User;
-import com.bank.repository.UserRepository;
-import com.bank.repository.impl.UserRepositoryImpl;
+import com.bank.dao.UserDao;
+import com.bank.dao.impl.UserCrudDaoImpl;
 import com.bank.service.PasswordEncriptor;
 import com.bank.service.UserService;
 import com.bank.service.impl.UserServiceImpl;
@@ -17,7 +17,7 @@ public class ApplicationInjector {
 
     private static final PasswordEncriptor PASSWORD_ENCRIPTOR = new PasswordEncriptor();
 
-    private static final UserRepository USER_REPOSITORY = new UserRepositoryImpl();
+    private static final UserDao USER_REPOSITORY = new UserCrudDaoImpl(connector);
 
     private static final UserService USER_SERVICE = new UserServiceImpl(USER_REPOSITORY, PASSWORD_ENCRIPTOR, USER_VALIDATOR);
 

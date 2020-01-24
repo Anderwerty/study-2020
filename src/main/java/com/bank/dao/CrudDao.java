@@ -1,12 +1,10 @@
-package com.bank.repository;
-
-import com.bank.repository.impl.Pageable;
+package com.bank.dao;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public interface CrudRepository<E> {
+public interface CrudDao<E> {
     //creat
     void save(E entity);
 

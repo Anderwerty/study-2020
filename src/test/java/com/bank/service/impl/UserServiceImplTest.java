@@ -1,7 +1,7 @@
 package com.bank.service.impl;
 
 import com.bank.domain.User;
-import com.bank.repository.UserRepository;
+import com.bank.dao.UserDao;
 import com.bank.service.PasswordEncriptor;
 import com.bank.service.validator.ValidateException;
 import com.bank.service.validator.Validator;
@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
@@ -43,7 +42,7 @@ public class UserServiceImplTest {
                     .build();
 
     @Mock
-    private UserRepository userRepository;
+    private UserDao userRepository;
     @Mock
     private PasswordEncriptor passwordEncriptor;
     @Mock

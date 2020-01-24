@@ -1,10 +1,10 @@
-package com.bank.repository;
+package com.bank.dao;
 
 import com.bank.domain.User;
 
 import java.util.Optional;
 
-public interface UserRepository extends CrudPageableRepository<User> {
+public interface UserDao extends CrudPageableDao<User> {
 
     Optional<User> findByEmail(String email);
 }

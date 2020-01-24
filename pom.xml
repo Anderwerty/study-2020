@@ -7,7 +7,8 @@
     <groupId>study-2020</groupId>
     <artifactId>study-2020</artifactId>
     <version>0.1-SNAPSHOT</version>
-
+    <properties>
+    </properties>
 
     <build>
         <plugins>
@@ -29,6 +30,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.16</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

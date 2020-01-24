@@ -1,4 +1,4 @@
-package com.bank.repository.impl;
+package com.bank.dao.impl;
 
 import java.util.List;
 

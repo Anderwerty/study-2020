@@ -1,9 +1,9 @@
 package com.bank.service.impl;
 
 import com.bank.domain.User;
-import com.bank.repository.Page;
-import com.bank.repository.UserRepository;
-import com.bank.repository.impl.Pageable;
+import com.bank.dao.Page;
+import com.bank.dao.UserDao;
+import com.bank.dao.impl.Pageable;
 import com.bank.service.PasswordEncriptor;
 import com.bank.service.UserService;
 import com.bank.service.validator.Validator;
@@ -13,11 +13,11 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static final int USER_PER_PAGE = 5;
 
-    private final UserRepository userRepository;
+    private final UserDao userRepository;
     private final PasswordEncriptor passwordEncriptor;
     private final Validator<User> userValidator;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncriptor passwordEncriptor,
+    public UserServiceImpl(UserDao userRepository, PasswordEncriptor passwordEncriptor,
                            Validator<User> userValidator) {
         this.userRepository = userRepository;
         this.passwordEncriptor = passwordEncriptor;
