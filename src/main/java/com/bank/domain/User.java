@@ -16,7 +16,7 @@ public class User {
         this.id = builder.id;
         this.email = builder.email;
         this.password = builder.password;
-        this.telephoneNumber=builder.telephoneNumber;
+        this.telephoneNumber = builder.telephoneNumber;
         this.accounts = nullSafeListInitialize(builder.accounts);
     }
 
@@ -78,7 +78,7 @@ public class User {
         private Integer id;
         private String email;
         private String password;
-        private  String telephoneNumber;
+        private String telephoneNumber;
         private List<Account> accounts;
 
         private Builder() {

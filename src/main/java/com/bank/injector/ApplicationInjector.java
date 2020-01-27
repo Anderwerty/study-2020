@@ -17,7 +17,7 @@ public class ApplicationInjector {
 
     private static final PasswordEncriptor PASSWORD_ENCRIPTOR = new PasswordEncriptor();
 
-    private static final UserDao USER_REPOSITORY = new UserCrudDaoImpl(connector);
+    private static final UserDao USER_REPOSITORY = new UserCrudDaoImpl(null);
 
     private static final UserService USER_SERVICE = new UserServiceImpl(USER_REPOSITORY, PASSWORD_ENCRIPTOR, USER_VALIDATOR);
 
