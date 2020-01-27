@@ -1,9 +1,9 @@
 package com.bank.service.impl;
 
-import com.bank.domain.User;
-import com.bank.dao.Page;
+import com.bank.entity.User;
+import com.bank.dao.domain.Page;
 import com.bank.dao.UserDao;
-import com.bank.dao.impl.Pageable;
+import com.bank.dao.domain.Pageable;
 import com.bank.service.PasswordEncriptor;
 import com.bank.service.UserService;
 import com.bank.service.validator.Validator;

@@ -1,4 +1,4 @@
-package com.bank.dao.impl;
+package com.bank.dao.domain;
 
 import java.util.List;
 

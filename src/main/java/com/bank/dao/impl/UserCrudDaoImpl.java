@@ -1,9 +1,9 @@
 package com.bank.dao.impl;
 
 import com.bank.dao.ConnectorDB;
-import com.bank.dao.DataBaseSqlRuntimeException;
 import com.bank.dao.UserDao;
-import com.bank.domain.User;
+import com.bank.dao.exception.DataBaseSqlRuntimeException;
+import com.bank.entity.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,27 +19,12 @@ public class UserCrudDaoImpl extends AbstractCrudDaoImpl<User> implements UserDa
     private static final String FIND_ALL_QUERY = "SELECT * FROM users";
 
     public UserCrudDaoImpl(ConnectorDB connector) {
-        super(connector,FIND_BY_ID_QUERY);
+        super(connector, FIND_BY_ID_QUERY);
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
-        try (final PreparedStatement preparedStatement =
-                     connector.getConnection().prepareStatement(FIND_BY_EMAIL_QUERY)) {
-            preparedStatement.setString(1, email);
-
-            try (final ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return Optional.of(mapResultSetToEntity(resultSet));
-                }
-            }
-
-        } catch (SQLException e) {
-            //log
-            throw new DataBaseSqlRuntimeException("", e);
-        }
-
-        return Optional.empty();
+        return findByParam(email, FIND_BY_EMAIL_QUERY, STRING_PARAM_SETTER);
     }
 
     @Override

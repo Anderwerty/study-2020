@@ -1,6 +1,6 @@
 package com.bank.service.validator;
 
-import com.bank.domain.User;
+import com.bank.entity.User;
 
 import java.util.function.Function;
 import java.util.regex.Pattern;

@@ -1,6 +1,6 @@
 package com.bank.injector;
 
-import com.bank.domain.User;
+import com.bank.entity.User;
 import com.bank.dao.UserDao;
 import com.bank.dao.impl.UserCrudDaoImpl;
 import com.bank.service.PasswordEncriptor;

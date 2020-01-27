@@ -1,4 +1,4 @@
-package com.bank.dao;
+package com.bank.dao.exception;
 
 public class DataBaseSqlRuntimeException extends RuntimeException {
     public DataBaseSqlRuntimeException() {

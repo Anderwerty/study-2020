@@ -1,6 +1,6 @@
 package com.bank.service.impl;
 
-import com.bank.domain.User;
+import com.bank.entity.User;
 import com.bank.dao.UserDao;
 import com.bank.service.PasswordEncriptor;
 import com.bank.service.validator.ValidateException;

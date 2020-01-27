@@ -1,4 +1,4 @@
-package com.bank.domain;
+package com.bank.entity;
 
 import java.util.List;
 import java.util.Objects;

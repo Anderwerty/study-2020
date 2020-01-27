@@ -1,6 +1,7 @@
 package com.bank.dao;
 
-import com.bank.dao.impl.Pageable;
+import com.bank.dao.domain.Page;
+import com.bank.dao.domain.Pageable;
 
 import java.util.List;
 

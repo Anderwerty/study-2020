@@ -2,7 +2,7 @@ package com.bank.dao.impl;
 
 import com.bank.dao.AccountDao;
 import com.bank.dao.ConnectorDB;
-import com.bank.domain.Account;
+import com.bank.entity.Account;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
