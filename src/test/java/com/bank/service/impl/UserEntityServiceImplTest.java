@@ -1,6 +1,6 @@
 package com.bank.service.impl;
 
-import com.bank.entity.User;
+import com.bank.entity.UserEntity;
 import com.bank.dao.UserDao;
 import com.bank.service.PasswordEncriptor;
 import com.bank.service.validator.ValidateException;
@@ -28,15 +28,15 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserServiceImplTest {
+public class UserEntityServiceImplTest {
     private static final String ENCODED_PASSWORD = "encoded_password";
     private static final String PASSWORD = "password";
     private static final String USER_EMAIL = "user@gmail.com";
     private static final String INCORRECT_PASSWORD = "INCORRECT_PASSWORD";
     private static final String ENCODE_INCORRECT_PASSWORD = "encode_incorrect_password";
 
-    private static final User USER =
-            User.builder()
+    private static final UserEntity USER_ENTITY =
+            UserEntity.builder()
                     .withEmail(USER_EMAIL)
                     .withPassword(ENCODED_PASSWORD)
                     .build();
@@ -46,7 +46,7 @@ public class UserServiceImplTest {
     @Mock
     private PasswordEncriptor passwordEncriptor;
     @Mock
-    private Validator<User> userValidator;
+    private Validator<UserEntity> userValidator;
 
     @InjectMocks
     private UserServiceImpl userService;
@@ -59,7 +59,7 @@ public class UserServiceImplTest {
     @Test
     public void userShouldLoginSuccessfully() {
         when(passwordEncriptor.encript(eq(PASSWORD))).thenReturn(ENCODED_PASSWORD);
-        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(USER));
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(USER_ENTITY));
 
         final boolean isLogin = userService.login(USER_EMAIL, PASSWORD);
 
@@ -85,7 +85,7 @@ public class UserServiceImplTest {
     @Test
     public void userShouldNotLoginAsPasswordIsIncorrect() {
         when(passwordEncriptor.encript(eq(INCORRECT_PASSWORD))).thenReturn(ENCODE_INCORRECT_PASSWORD);
-        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(USER));
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(USER_ENTITY));
 
         final boolean isLogin = userService.login(USER_EMAIL, INCORRECT_PASSWORD);
 
@@ -97,31 +97,31 @@ public class UserServiceImplTest {
 
     @Test
     public void userShouldRegisterSuccessfully() {
-        doNothing().when(userValidator).validate(any(User.class));
+        doNothing().when(userValidator).validate(any(UserEntity.class));
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
-        doNothing().when(userRepository).save(any(User.class));
+        doNothing().when(userRepository).save(any(UserEntity.class));
 
-        final User actual = userService.register(USER);
+        final UserEntity actual = userService.register(USER_ENTITY);
 
-        assertEquals(USER, actual);
-        verify(userValidator).validate(any(User.class));
+        assertEquals(USER_ENTITY, actual);
+        verify(userValidator).validate(any(UserEntity.class));
         verify(userRepository).findByEmail(anyString());
-        verify(userRepository).save(any(User.class));
+        verify(userRepository).save(any(UserEntity.class));
     }
 
     @Test(expected = ValidateException.class)
     public void userShouldNotRegisterWithInvalidPasswordOrEmail() {
-        doThrow(ValidateException.class).when(userValidator).validate(any(User.class));
+        doThrow(ValidateException.class).when(userValidator).validate(any(UserEntity.class));
 
-        userService.register(USER);
+        userService.register(USER_ENTITY);
     }
 
     @Test(expected = RuntimeException.class)
     public void userShouldNotRegisterAsEmailIsAlreadyUsed() {
-        doNothing().when(userValidator).validate(any(User.class));
-        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(USER));
-        doNothing().when(userRepository).save(any(User.class));
+        doNothing().when(userValidator).validate(any(UserEntity.class));
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(USER_ENTITY));
+        doNothing().when(userRepository).save(any(UserEntity.class));
 
-        userService.register(USER);
+        userService.register(USER_ENTITY);
     }
 }

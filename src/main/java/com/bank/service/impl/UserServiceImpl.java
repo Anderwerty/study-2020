@@ -1,9 +1,9 @@
 package com.bank.service.impl;
 
-import com.bank.entity.User;
-import com.bank.dao.domain.Page;
 import com.bank.dao.UserDao;
+import com.bank.dao.domain.Page;
 import com.bank.dao.domain.Pageable;
+import com.bank.entity.UserEntity;
 import com.bank.service.PasswordEncriptor;
 import com.bank.service.UserService;
 import com.bank.service.validator.Validator;
@@ -15,10 +15,10 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao userRepository;
     private final PasswordEncriptor passwordEncriptor;
-    private final Validator<User> userValidator;
+    private final Validator<UserEntity> userValidator;
 
     public UserServiceImpl(UserDao userRepository, PasswordEncriptor passwordEncriptor,
-                           Validator<User> userValidator) {
+                           Validator<UserEntity> userValidator) {
         this.userRepository = userRepository;
         this.passwordEncriptor = passwordEncriptor;
         this.userValidator = userValidator;
@@ -30,30 +30,45 @@ public class UserServiceImpl implements UserService {
         String encriptPassword = passwordEncriptor.encript(password);
 
         return userRepository.findByEmail(email)
-                .map(User::getPassword)
+                .map(UserEntity::getPassword)
                 .filter(pass -> pass.equals(encriptPassword))
                 .isPresent();
     }
 
     @Override
-    public User register(User user) {
-        userValidator.validate(user);
+    public UserEntity register(UserEntity userEntity) {
+        userValidator.validate(userEntity);
 
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+        if (userRepository.findByEmail(userEntity.getEmail()).isPresent()) {
             throw new RuntimeException("message");
         }
 
-        userRepository.save(user);
+        userRepository.save(userEntity);
 
         //id?
-        return user;
+        return userEntity;
     }
 
     @Override
-    public List<User> findAll(int page) {
+    public List<UserEntity> findAll(String page) {
+        int pageNumber = 0;
+        pageNumber = parsePageNumber(page, 0);
+
         //page should be validate or if page is not valid use default value 1 {-1,-2,...};
         //if page number> maxPage, maxPage
-        final Pageable<User> users = userRepository.findAll(new Page(page, USER_PER_PAGE));
+        final Pageable<UserEntity> users = userRepository.findAll(new Page(0, USER_PER_PAGE));
         return null;
+    }
+
+    private int parsePageNumber(String page, int defaultValue) {
+        if (page == null) {
+            return defaultValue;
+        }
+        try {
+            return Integer.parseInt(page);
+        } catch (NumberFormatException e) {
+            //log.warn
+            return defaultValue;
+        }
     }
 }

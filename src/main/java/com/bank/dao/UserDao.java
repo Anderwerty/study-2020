@@ -1,10 +1,10 @@
 package com.bank.dao;
 
-import com.bank.entity.User;
+import com.bank.entity.UserEntity;
 
 import java.util.Optional;
 
-public interface UserDao extends CrudPageableDao<User> {
+public interface UserDao extends CrudPageableDao<UserEntity> {
 
-    Optional<User> findByEmail(String email);
+    Optional<UserEntity> findByEmail(String email);
 }

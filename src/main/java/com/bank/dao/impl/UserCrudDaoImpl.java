@@ -3,7 +3,7 @@ package com.bank.dao.impl;
 import com.bank.dao.ConnectorDB;
 import com.bank.dao.UserDao;
 import com.bank.dao.exception.DataBaseSqlRuntimeException;
-import com.bank.entity.User;
+import com.bank.entity.UserEntity;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserCrudDaoImpl extends AbstractCrudDaoImpl<User> implements UserDao {
+public class UserCrudDaoImpl extends AbstractCrudDaoImpl<UserEntity> implements UserDao {
 
     private static final String FIND_BY_EMAIL_QUERY = "SELECT * FROM users WHERE email=?";
     private static final String FIND_BY_ID_QUERY = "SELECT * FROM users WHERE id=?";
@@ -23,26 +23,26 @@ public class UserCrudDaoImpl extends AbstractCrudDaoImpl<User> implements UserDa
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
+    public Optional<UserEntity> findByEmail(String email) {
         return findByParam(email, FIND_BY_EMAIL_QUERY, STRING_PARAM_SETTER);
     }
 
     @Override
-    public void save(User entity) {
+    public void save(UserEntity entity) {
 
     }
 
     @Override
-    public List<User> findAll(int page, int itemPerPage) {
+    public List<UserEntity> findAll(int page, int itemPerPage) {
         try (final PreparedStatement preparedStatement =
                      connector.getConnection().prepareStatement(FIND_ALL_QUERY)) {
             try (final ResultSet resultSet = preparedStatement.executeQuery()) {
-                List<User> users = new ArrayList<>();
+                List<UserEntity> userEntities = new ArrayList<>();
                 while (resultSet.next()) {
-                    final User optionalUser = mapResultSetToEntity(resultSet);
-                    users.add(optionalUser);
+                    final UserEntity optionalUserEntity = mapResultSetToEntity(resultSet);
+                    userEntities.add(optionalUserEntity);
                 }
-                return users;
+                return userEntities;
             }
 
         } catch (SQLException e) {
@@ -56,8 +56,8 @@ public class UserCrudDaoImpl extends AbstractCrudDaoImpl<User> implements UserDa
         return 0;
     }
 
-    protected User mapResultSetToEntity(ResultSet resultSet) throws SQLException {
-        return User.builder()
+    protected UserEntity mapResultSetToEntity(ResultSet resultSet) throws SQLException {
+        return UserEntity.builder()
                 .withId(resultSet.getInt("id"))
                 .withEmail(resultSet.getString("email"))
                 .withPassword(resultSet.getString("password"))
@@ -66,7 +66,7 @@ public class UserCrudDaoImpl extends AbstractCrudDaoImpl<User> implements UserDa
     }
 
     @Override
-    public void update(User entity) {
+    public void update(UserEntity entity) {
 
     }
 

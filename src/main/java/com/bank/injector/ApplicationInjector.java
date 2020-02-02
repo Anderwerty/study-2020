@@ -1,6 +1,6 @@
 package com.bank.injector;
 
-import com.bank.entity.User;
+import com.bank.entity.UserEntity;
 import com.bank.dao.UserDao;
 import com.bank.dao.impl.UserCrudDaoImpl;
 import com.bank.service.PasswordEncriptor;
@@ -13,7 +13,7 @@ public class ApplicationInjector {
 
     private static final ApplicationInjector INSTANCE = new ApplicationInjector();
 
-    private static final Validator<User> USER_VALIDATOR = new UserValidator();
+    private static final Validator<UserEntity> USER_VALIDATOR = new UserValidator();
 
     private static final PasswordEncriptor PASSWORD_ENCRIPTOR = new PasswordEncriptor();
 

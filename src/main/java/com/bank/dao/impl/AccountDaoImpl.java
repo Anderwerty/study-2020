@@ -2,14 +2,16 @@ package com.bank.dao.impl;
 
 import com.bank.dao.AccountDao;
 import com.bank.dao.ConnectorDB;
-import com.bank.entity.Account;
+import com.bank.entity.AccountEntity;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-public class AccountDaoImpl extends AbstractCrudDaoImpl<Account> implements AccountDao {
+public class AccountDaoImpl extends AbstractCrudDaoImpl<AccountEntity> implements AccountDao {
     private static final String FIND_BY_ID_QUERY = "SELECT * FROM accounts WHERE id=?";
 
     public AccountDaoImpl(ConnectorDB connector) {
@@ -17,12 +19,12 @@ public class AccountDaoImpl extends AbstractCrudDaoImpl<Account> implements Acco
     }
 
     @Override
-    public void save(Account entity) {
+    public void save(AccountEntity entity) {
 
     }
 
     @Override
-    public List<Account> findAll(int page, int itemsPerPage) {
+    public List<AccountEntity> findAll(int page, int itemsPerPage) {
         return Collections.emptyList();
     }
 
@@ -32,7 +34,7 @@ public class AccountDaoImpl extends AbstractCrudDaoImpl<Account> implements Acco
     }
 
     @Override
-    public void update(Account entity) {
+    public void update(AccountEntity entity) {
 
     }
 
@@ -41,8 +43,41 @@ public class AccountDaoImpl extends AbstractCrudDaoImpl<Account> implements Acco
 
     }
 
-    protected Account mapResultSetToEntity(ResultSet resultSet) throws SQLException {
-        return new Account(resultSet.getInt("id"), null, resultSet.getInt("id"));
+    protected AccountEntity mapResultSetToEntity(ResultSet resultSet) throws SQLException {
+        return new AccountEntity(resultSet.getInt("id"), null, resultSet.getInt("id"));
 
+    }
+
+    @Override
+    public void transferMoney(Integer accountIdFrom, Integer accountIdTo, long money) {
+        Connection connection = null;
+        try {
+            connection = connector.getConnection();
+            connection.setAutoCommit(false);
+            final PreparedStatement preparedStatement1 = connection.prepareStatement("SQL query");
+            preparedStatement1.execute();
+            //
+
+            final PreparedStatement preparedStatement2 = connection.prepareStatement("SQL query");
+            preparedStatement2.execute();
+
+            connection.commit();
+        } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } finally {
+            if (connection!=null) {
+                try {
+                    connection.setAutoCommit(true);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

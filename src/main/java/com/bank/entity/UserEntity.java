@@ -5,19 +5,19 @@ import java.util.Objects;
 
 import static com.bank.utility.CollectionUtility.nullSafeListInitialize;
 
-public class User {
+public class UserEntity {
     private final Integer id;
     private final String email;
     private final String password;
     private final String telephoneNumber;
-    private final List<Account> accounts;
+    private final List<AccountEntity> accountEntities;
 
-    private User(Builder builder) {
+    private UserEntity(Builder builder) {
         this.id = builder.id;
         this.email = builder.email;
         this.password = builder.password;
         this.telephoneNumber = builder.telephoneNumber;
-        this.accounts = nullSafeListInitialize(builder.accounts);
+        this.accountEntities = nullSafeListInitialize(builder.accountEntities);
     }
 
     public Integer getId() {
@@ -32,8 +32,8 @@ public class User {
         return password;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
+    public List<AccountEntity> getAccountEntities() {
+        return accountEntities;
     }
 
     public String getTelephoneNumber() {
@@ -52,25 +52,25 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(accounts, user.accounts);
+        UserEntity userEntity = (UserEntity) o;
+        return Objects.equals(id, userEntity.id) &&
+                Objects.equals(email, userEntity.email) &&
+                Objects.equals(password, userEntity.password) &&
+                Objects.equals(accountEntities, userEntity.accountEntities);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, accounts);
+        return Objects.hash(id, email, password, accountEntities);
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserEntity{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", password='" + "[********]" + '\'' +
-                ", accounts=" + accounts +
+                ", accountEntities=" + accountEntities +
                 '}';
     }
 
@@ -79,13 +79,13 @@ public class User {
         private String email;
         private String password;
         private String telephoneNumber;
-        private List<Account> accounts;
+        private List<AccountEntity> accountEntities;
 
         private Builder() {
         }
 
-        public User build() {
-            return new User(this);
+        public UserEntity build() {
+            return new UserEntity(this);
         }
 
         public Builder withId(Integer id) {
@@ -108,8 +108,8 @@ public class User {
             return this;
         }
 
-        public Builder withAccounts(List<Account> accounts) {
-            this.accounts = accounts;
+        public Builder withAccounts(List<AccountEntity> accountEntities) {
+            this.accountEntities = accountEntities;
             return this;
         }
     }

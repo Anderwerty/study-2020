@@ -1,11 +1,11 @@
 package com.bank.entity;
 
-public class Account {
+public class AccountEntity {
     private final Integer id;
-    private final User user;
+    private final UserEntity user;
     private final Integer money;
 
-    public Account(Integer id, User user, Integer money) {
+    public AccountEntity(Integer id, UserEntity user, Integer money) {
         this.id = id;
         this.user = user;
         this.money = money;
@@ -15,7 +15,7 @@ public class Account {
         return id;
     }
 
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
@@ -25,7 +25,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
+        return "AccountEntity{" +
                 "id=" + id +
                 ", money=" + money +
                 '}';
