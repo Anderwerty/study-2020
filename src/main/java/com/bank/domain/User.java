@@ -4,6 +4,7 @@ public class User {
     private Integer id;
     private String email;
     private String password;
+    private String telephoneNumber;
 
     public User(Integer id, String email, String password) {
         this.id = id;
@@ -21,5 +22,9 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getTelephoneNumber() {
+        return telephoneNumber;
     }
 }

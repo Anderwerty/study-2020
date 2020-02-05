@@ -1,34 +1,35 @@
 package com.bank.service.validator;
 
+import com.bank.domain.User;
 import com.bank.entity.UserEntity;
 
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
-public class UserValidator implements Validator<UserEntity> {
+public class UserValidator implements Validator<User> {
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-zA-Z0-9_!#$%&*+/=?`{}~^.-]+@[a-zA-Z0-9.-]+$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})");
     private static final Pattern TELEPHONE_PATTERN = Pattern.compile("([+]*38[(]?[0-9]{1,4}[)]?[-\\s./0-9]*)");
 
     @Override
-    public void validate(UserEntity userEntity) {
-        if (userEntity == null) {
+    public void validate(User user) {
+        if (user == null) {
             throw new ValidateException("");
         }
-        validateEmail(userEntity);
-        validatePassword(userEntity);
-        validateString(TELEPHONE_PATTERN, userEntity, UserEntity::getTelephoneNumber, "Telephone do not match the pattern");
+        validateEmail(user);
+        validatePassword(user);
+        validateString(TELEPHONE_PATTERN, user, User::getTelephoneNumber, "Telephone do not match the pattern");
     }
 
-    private static void validateEmail(UserEntity userEntity){
-        validateString(EMAIL_PATTERN, userEntity, UserEntity::getEmail, "Email do not match the pattern");
+    private static void validateEmail(User user){
+        validateString(EMAIL_PATTERN, user, User::getEmail, "Email do not match the pattern");
     }
 
-    private static void validatePassword(UserEntity userEntity){
-        validateString(PASSWORD_PATTERN, userEntity, UserEntity::getPassword, "Password do not match the pattern");
+    private static void validatePassword(User user){
+        validateString(PASSWORD_PATTERN, user, User::getPassword, "Password do not match the pattern");
     }
 
-    private static void validateString(Pattern pattern, UserEntity userEntity, Function<UserEntity, String> function,
+    private static void validateString(Pattern pattern, User userEntity, Function<User, String> function,
                                        String exceptionMessage) {
         if (!pattern.matcher(function.apply(userEntity)).matches()) {
             throw new ValidateException(exceptionMessage);

@@ -1,5 +1,6 @@
 package com.bank.service.impl;
 
+import com.bank.domain.User;
 import com.bank.entity.UserEntity;
 import com.bank.dao.UserDao;
 import com.bank.service.PasswordEncriptor;
@@ -35,11 +36,12 @@ public class UserEntityServiceImplTest {
     private static final String INCORRECT_PASSWORD = "INCORRECT_PASSWORD";
     private static final String ENCODE_INCORRECT_PASSWORD = "encode_incorrect_password";
 
-    private static final UserEntity USER_ENTITY =
-            UserEntity.builder()
-                    .withEmail(USER_EMAIL)
-                    .withPassword(ENCODED_PASSWORD)
-                    .build();
+    private static final UserEntity USER_ENTITY =null;
+    private static final User USER =null;
+//            UserEntity.builder()
+//                    .withEmail(USER_EMAIL)
+//                    .withPassword(ENCODED_PASSWORD)
+//                    .build();
 
     @Mock
     private UserDao userRepository;
@@ -101,7 +103,7 @@ public class UserEntityServiceImplTest {
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
         doNothing().when(userRepository).save(any(UserEntity.class));
 
-        final UserEntity actual = userService.register(USER_ENTITY);
+        final User actual = userService.register(USER);
 
         assertEquals(USER_ENTITY, actual);
         verify(userValidator).validate(any(UserEntity.class));
@@ -113,7 +115,7 @@ public class UserEntityServiceImplTest {
     public void userShouldNotRegisterWithInvalidPasswordOrEmail() {
         doThrow(ValidateException.class).when(userValidator).validate(any(UserEntity.class));
 
-        userService.register(USER_ENTITY);
+        userService.register(USER);
     }
 
     @Test(expected = RuntimeException.class)
@@ -122,6 +124,6 @@ public class UserEntityServiceImplTest {
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(USER_ENTITY));
         doNothing().when(userRepository).save(any(UserEntity.class));
 
-        userService.register(USER_ENTITY);
+        userService.register(USER);
     }
 }

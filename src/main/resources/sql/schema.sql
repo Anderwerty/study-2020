@@ -1,10 +1,10 @@
 -- -----------------------------------------------------
--- Schema expositions_calendar
+-- Schema bank
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `bank` ;
 
 -- -----------------------------------------------------
--- Schema expositions_calendar
+-- Schema bank
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `bank` DEFAULT CHARACTER SET utf8 ;
 USE `bank` ;

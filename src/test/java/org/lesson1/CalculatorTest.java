@@ -1,10 +1,12 @@
 package org.lesson1;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 
 public class CalculatorTest {
@@ -36,6 +38,8 @@ public class CalculatorTest {
         final int expected = 5;
 
         assertEquals(expected, actual);
+        assertEquals(expected, actual);
+        Assert.assertThat(actual, is(expected));
     }
 
     @Test

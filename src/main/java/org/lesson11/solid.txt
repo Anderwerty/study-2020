@@ -1,0 +1,5 @@
+S - single responsibility (example1)
+O - open/close (example2)
+L - Liskov substitution (example3)
+I - Interface segregation (example4)
+D -
