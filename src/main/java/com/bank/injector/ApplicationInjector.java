@@ -1,5 +1,6 @@
 package com.bank.injector;
 
+import com.bank.dao.ConnectorDB;
 import com.bank.entity.UserEntity;
 import com.bank.dao.UserDao;
 import com.bank.dao.impl.UserCrudDaoImpl;
@@ -17,7 +18,9 @@ public class ApplicationInjector {
 
     private static final PasswordEncriptor PASSWORD_ENCRIPTOR = new PasswordEncriptor();
 
-    private static final UserDao USER_REPOSITORY = new UserCrudDaoImpl(null);
+    private static final ConnectorDB CONNECTOR_DB = new ConnectorDB("database");
+
+    private static final UserDao USER_REPOSITORY = new UserCrudDaoImpl(CONNECTOR_DB);
 
     private static final UserService USER_SERVICE = new UserServiceImpl(USER_REPOSITORY, PASSWORD_ENCRIPTOR, USER_VALIDATOR);
 
@@ -28,7 +31,7 @@ public class ApplicationInjector {
         return INSTANCE;
     }
 
-    public UserService getUserService(){
+    public UserService getUserService() {
         return USER_SERVICE;
     }
 }

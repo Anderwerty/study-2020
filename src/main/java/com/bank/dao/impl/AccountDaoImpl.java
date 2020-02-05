@@ -44,7 +44,9 @@ public class AccountDaoImpl extends AbstractCrudDaoImpl<AccountEntity> implement
     }
 
     protected AccountEntity mapResultSetToEntity(ResultSet resultSet) throws SQLException {
-        return new AccountEntity(resultSet.getInt("id"), null, resultSet.getInt("id"));
+        return AccountEntity.builder()
+                .withId(resultSet.getInt("id"))
+                .build();
 
     }
 
@@ -71,7 +73,7 @@ public class AccountDaoImpl extends AbstractCrudDaoImpl<AccountEntity> implement
                 }
             }
         } finally {
-            if (connection!=null) {
+            if (connection != null) {
                 try {
                     connection.setAutoCommit(true);
                 } catch (SQLException e) {
