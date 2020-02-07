@@ -7,6 +7,7 @@ import static com.bank.utility.CollectionUtility.nullSafeListInitialize;
 
 public class UserEntity {
     private final Integer id;
+    private final RoleEntity role;
     private final String email;
     private final String password;
     private final String telephoneNumber;
@@ -14,6 +15,7 @@ public class UserEntity {
 
     private UserEntity(Builder builder) {
         this.id = builder.id;
+        this.role = builder.role;
         this.email = builder.email;
         this.password = builder.password;
         this.telephoneNumber = builder.telephoneNumber;
@@ -40,8 +42,20 @@ public class UserEntity {
         return telephoneNumber;
     }
 
+    public RoleEntity getRole() {
+        return role;
+    }
+
     public static Builder builder() {
         return new Builder();
+    }
+
+    public static Builder builder(UserEntity userEntity) {
+        return new Builder();
+    }
+
+    public static UserEntity copy(UserEntity entity, String encodepassword){
+        return new UserEntity(null);
     }
 
     @Override
@@ -76,6 +90,7 @@ public class UserEntity {
 
     public static class Builder {
         private Integer id;
+        private RoleEntity role;
         private String email;
         private String password;
         private String telephoneNumber;
@@ -84,12 +99,22 @@ public class UserEntity {
         private Builder() {
         }
 
+        private Builder(UserEntity userEntity) {
+            this.id=userEntity.id;
+            //
+        }
+
         public UserEntity build() {
             return new UserEntity(this);
         }
 
         public Builder withId(Integer id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder withRole(RoleEntity role) {
+            this.role = role;
             return this;
         }
 

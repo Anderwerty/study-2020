@@ -2,6 +2,7 @@ package com.bank.domain;
 
 public class User {
     private Integer id;
+    private Role role;
     private String email;
     private String password;
     private String telephoneNumber;
@@ -14,6 +15,10 @@ public class User {
 
     public Integer getId() {
         return id;
+    }
+
+    public Role getRole() {
+        return role;
     }
 
     public String getEmail() {

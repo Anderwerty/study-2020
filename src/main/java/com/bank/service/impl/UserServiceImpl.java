@@ -58,25 +58,37 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll(String page) {
-        int pageNumber = 0;
-        pageNumber = parsePageNumber(page, 0);
+
+        final int itemsNumber =(int) userDao.count();
+        int pageNumber = parsePageNumber(page, itemsNumber,1);
 
         //page should be validate or if page is not valid use default value 1 {-1,-2,...};
         //if page number> maxPage, maxPage
         final Pageable<UserEntity> userEntityPageable =
-                userDao.findAll(new Page(0, USER_PER_PAGE));
+                userDao.findAll(new Page(pageNumber, USER_PER_PAGE));
 
         return userEntityPageable.getItems().stream()
                 .map(userMapper::mapEntityToDomain)
                 .collect(Collectors.toList());
     }
 
-    private int parsePageNumber(String page, int defaultValue) {
+    private int parsePage(String page) {
+        return Integer.parseInt(page);
+    }
+
+    private int parsePageNumber(String page, int fullItemsNumber, int defaultValue) {
+        int itemsPerPage = 5;
+        int maxpage = fullItemsNumber / itemsPerPage + ((fullItemsNumber % itemsPerPage == 0) ? 0 : 1);
+
         if (page == null) {
             return defaultValue;
         }
         try {
-            return Integer.parseInt(page);
+            final int p = Integer.parseInt(page);
+            if (p > maxpage) {//  add check that is not negative
+                return defaultValue;
+            }
+            return p;
         } catch (NumberFormatException e) {
             //log.warn
             return defaultValue;
